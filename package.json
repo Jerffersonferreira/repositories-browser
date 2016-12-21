@@ -1,0 +1,14 @@
+{
+  "name": "repositories-browser",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "url": "https://github.com/jerffersonferreira/repositories-browser",
+    "type": "git"
+  },
+  "author": "Jerfferson Ferreira",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}
