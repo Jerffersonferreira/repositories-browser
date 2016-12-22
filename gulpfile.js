@@ -14,11 +14,18 @@ const gulp = require("gulp"),
 	sourcemaps = require("gulp-sourcemaps"),
 	gutil = require("gulp-util"),
 	clean = require("gulp-clean"),
-	jshint = require("gulp-jshint");
+	jshint = require("gulp-jshint"),
+	jscs = require("gulp-jscs");
 
 gulp.task("js:clean", function () {
 	return gulp.src(JS_DIST_PATH, {read: false})
 		.pipe(clean({force: true}));
+});
+
+gulp.task("js:jscs", () => {
+	return gulp.src(JS_SOURCE_PATH + "/**/*.js")
+		.pipe(jscs())
+		.pipe(jscs.reporter());
 });
 
 gulp.task("js:jshint", function() {
@@ -29,7 +36,7 @@ gulp.task("js:jshint", function() {
 		.pipe(jshint.reporter("fail"));
 });
 
-gulp.task("js:browserify", ["js:jshint", "js:clean"], function () {
+gulp.task("js:browserify", ["js:jshint", "js:jscs", "js:clean"], function () {
 	var b = browserify({
 		debug: true,
 		basedir: JS_SOURCE_PATH + "/",
