@@ -3,8 +3,9 @@
 "use strict";
 
 const
+	SOURCE_PATH = "./source",
 	DIST_PATH = "./dist",
-	JS_SOURCE_PATH = "./source/js",
+	JS_SOURCE_PATH = SOURCE_PATH + "/js",
 	JS_DIST_PATH = DIST_PATH + "/js";
 
 const gulp = require("gulp"),
@@ -55,6 +56,11 @@ gulp.task("js:browserify", ["js:jshint", "js:jscs", "js:clean"], function () {
 		.pipe(gulp.dest(JS_DIST_PATH + "/"));
 });
 
+gulp.task("html:copy", function() {
+	return gulp.src(SOURCE_PATH + "/index.html")
+		.pipe(gulp.dest(DIST_PATH + "/"));
+});
+
 gulp.task("connect", function() {
 	connect.server({
 		host: "localhost",
@@ -65,8 +71,7 @@ gulp.task("connect", function() {
 
 gulp.task("watch", function () {
 	gulp.watch(JS_SOURCE_PATH + "/**/*.js", ["js:browserify"]);
+	gulp.watch(SOURCE_PATH + "/index.html", ["html:copy"]);
 });
 
-gulp.task("default", ["connect", "watch"], function () {
-	
-});
+gulp.task("default", ["connect", "watch"], function () {});
