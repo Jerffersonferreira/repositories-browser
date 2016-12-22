@@ -1,0 +1,22 @@
+{
+    "camelcase": true,
+    "freeze": true,
+    "indent": 4,
+    "curly": true,
+    "latedef": false,
+    "newcap": true,
+    "noempty": true,
+    "plusplus": true,
+    "undef": true,
+    "unused": true,
+    "predef": ["console", "require", "requirejs", "define", "window", "document", "module"],
+    "strict": true,
+    "trailing": true,
+    "quotmark": "double",
+    "eqeqeq": true,
+    "maxlen": 0,
+    "maxcomplexity": 10,
+    "noarg": true,
+    "immed": true,
+    "node": true
+}
