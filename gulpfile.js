@@ -27,7 +27,9 @@ const gulp = require("gulp"),
 	defineModule = require("gulp-define-module"),
 	less = require("gulp-less"),
 	path = require("path"),
-	imagemin = require("gulp-imagemin");
+	imagemin = require("gulp-imagemin"),
+	uglify = require("gulp-uglify"),
+	cleanCSS = require("gulp-clean-css");
 
 gulp.task("imagemin", ["img:clean"], function () {
 	return gulp.src(IMG_SOURCE_PATH + "/**/*")
@@ -40,6 +42,7 @@ gulp.task("less", function () {
 		.pipe(less({
 			paths: [ path.join(__dirname) ]
 		}))
+		.pipe(cleanCSS())
 		.pipe(gulp.dest(LESS_DIST_PATH));
 });
 
@@ -76,7 +79,7 @@ gulp.task("js:jshint", function() {
 
 gulp.task("js:browserify", ["js:jshint", "js:jscs", "hbs:templates", "js:clean"], function () {
 	var b = browserify({
-		debug: true,
+		debug: false,
 		basedir: JS_SOURCE_PATH + "/",
 		paths: ["../js/", "../temp/"],
 		entries: "main.js"
@@ -86,6 +89,7 @@ gulp.task("js:browserify", ["js:jshint", "js:jscs", "hbs:templates", "js:clean"]
 		.on("error", gutil.log)
 		.pipe(source("main.js"))
 		.pipe(buffer())
+		.pipe(uglify())
 		.pipe(gulp.dest(JS_DIST_PATH + "/"));
 });
 
@@ -102,7 +106,7 @@ gulp.task("connect", function() {
 	});
 });
 
-gulp.task("watch", function () {
+gulp.task("watch", ["js:browserify", "html:copy", "less", "imagemin"], function () {
 	gulp.watch(JS_SOURCE_PATH + "/**/*.js", ["js:browserify"]);
 	gulp.watch(SOURCE_PATH + "/index.html", ["html:copy"]);
 	gulp.watch(LESS_SOURCE_PATH + "/**/*.less", ["less"]);
