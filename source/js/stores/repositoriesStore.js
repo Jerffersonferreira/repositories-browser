@@ -315,7 +315,7 @@ handlers.clean = function () {
 
 repositoriesStore.dispatchToken = dispatcher.register(function (action) {
 	error = {};
-	console.log(action.type);
+
 	switch(action.type) {
 		case actionTypes.FETCHED: {
 			handlers.fetch(action);
