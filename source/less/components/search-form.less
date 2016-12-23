@@ -1,0 +1,45 @@
+/**
+ * @define search-form
+ */
+
+.search-form {
+	@width: 400px;
+	@height: 200px;
+
+	position: absolute;
+	width: @width;
+	height: @height;
+	margin-left: @width / -2;
+	margin-top: @height / -2;
+	left: 50%;
+	top: 50%;
+	box-sizing: border-box;
+
+	> .title {
+		font-family: @font-family;
+		font-size: 42px;
+		color: #999;
+		font-weight: 300;
+		text-align: left;
+		width: 100%;
+		display: block;
+		margin-bottom: 10px;
+	}
+
+	> .errormessage {
+		text-align: center;
+		color: #ca1f1f;
+		margin-top: 40px;
+
+		> i {
+			vertical-align: middle;
+			margin-top: -3px;
+		}
+	}
+	@media (max-width: @breakpoint-mobile) {
+		width: 100%;
+		left: 0;
+		margin-left: 0;
+		padding: 30px;
+	}
+}

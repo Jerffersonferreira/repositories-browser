@@ -1,0 +1,14 @@
+<!-- check-list: -->
+<div class="check-list">
+	<p class="title"><i class="material-icons">filter_list</i> {{title}}</p>
+	{{#each options}}
+		<label class="item">
+			<input class="js-checklist-checkbox" type="checkbox" value="{{value}}"{{#if checked}} checked="checked"{{/if}}>
+			<span class="text">
+				{{label}}
+				<i class="material-icons">done</i>
+			</span>
+		</label>
+	{{/each}}
+</div>
+<!-- :check-list -->

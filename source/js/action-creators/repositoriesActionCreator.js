@@ -8,8 +8,13 @@ var dispatcher = require("dispatcher/dispatcher"),
 	api = {};
 
 api.fetchMore = function () {
+	var currentUser = repositoriesStore.getCurrentUsername();
+	if(!currentUser) {
+		return;
+	}
+
 	repositoriesService.fetch(
-		repositoriesStore.getCurrentUsername(),
+		currentUser,
 		repositoriesStore.getNextPage(),
 		function (error, list) {
 			dispatcher.dispatch({
@@ -53,6 +58,12 @@ api.sort = function (sortType) {
 	dispatcher.dispatch({
 		type: actionTypes.SORT,
 		sortType: sortType
+	});
+};
+
+api.clean = function () {
+	dispatcher.dispatch({
+		type: actionTypes.CLEAN
 	});
 };
 

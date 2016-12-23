@@ -1,0 +1,14 @@
+<!-- simple-card: -->
+<div class="simple-card">
+	<div class="image">
+		<img src="{{owner.avatar_url}}" width="100%" alt="{{owner.login}}">
+	</div>
+	<div class="content">
+		<span class="title">{{name}}</span>
+		<span class="stars"><i class="material-icons">grade</i> {{stargazers_count}}</span>
+		<span class="openissues"><i class="material-icons">error_outline</i> {{open_issues_count}}</span>
+		<span class="author js-change-user-option" data-username="{{owner.login}}"><i class="material-icons">account_circle</i>{{owner.login}}</span>
+		<a href="{{html_url}}" target="_blank" class="link"><i class="material-icons">link</i></a>
+	</div>
+</div>
+<!-- :simple-card -->

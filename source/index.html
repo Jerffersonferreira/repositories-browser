@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Repositories Browser</title>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="./css/main.css">
+</head>
+
+<body class="app js-app is-sidebarclosed">
+	<div class="modal js-app-modal">
+		<!-- search-form: -->
+		<form method="GET" class="search-form js-search-form">
+			<label for="inputsearch" class="title">Pesquisar</label>
+			<!-- input-group: -->
+			<div class="input-group">
+				<input class="default-input js-input-search" id="inputsearch" name="inputsearch" placeholder="user name" autocomplete="off">
+				<button class="default-button -secondary js-submit-button" type="submit"><i class="material-icons">search</i></button>
+			</div>
+			<!-- :input-group -->
+			<p class="errormessage js-app-modal-error-message"></p>
+		</form>
+		<!-- :search-form -->
+	</div>
+	<div class="sidebar">
+		<div class="button">
+			<button class="default-button js-sidebar-close-button"><i class="material-icons">clear</i></button>
+		</div>
+		<div class="content js-sidebar">
+		</div>
+	</div>
+	<div class="content">
+		<!-- main-display: -->
+		<div class="main-display">
+			<div class="bar">
+				<div class="options">
+					<!-- button-group: -->
+					<div class="button-group">
+						<div class="item">
+							<button class="default-button js-button-show-filters">
+								<i class="material-icons">filter_list</i>
+							</button>
+						</div>
+						<div class="item">
+							<button class="default-button js-button-search">
+								<i class="material-icons">search</i>
+							</button>
+						</div>
+					</div>
+					<!-- :button-group -->
+				</div>
+				<div class="sortoptions js-sort-controls"></div>
+			</div>
+			<div class="content js-main-display-content"></div>
+		</div>
+		<!-- :main-display -->
+	</div>
+	<div class="loading"></div>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script type="text/javascript" src="./js/main.js"></script>
+</body>
+
+</html>

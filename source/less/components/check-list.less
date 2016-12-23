@@ -1,0 +1,54 @@
+/**
+ * @define check-list
+ */
+
+.check-list {
+	font-family: @font-family;
+	padding-bottom: 16px;
+	box-sizing: border-box;
+
+	> .title {
+		font-size: 18px;
+		padding: 16px;
+		border-bottom: 1px solid #bbb;
+		margin: 0;
+
+		i {
+			vertical-align: middle;
+		}
+	}
+
+	> .item {
+		position: relative;
+		display: block;
+		cursor: pointer;
+
+		> input {
+			display: none;
+		}
+
+		> .text {
+			display: block;
+			padding: 12px 16px;
+			font-size: 18px;
+			color: #444;
+			border-bottom: 2px solid white;
+			background-color: #f6f6f6;
+
+			> i {
+				float: right;
+				display: none;
+				color: green;
+			}
+		}
+
+		> input:checked + .text {
+			background-color: #FAFAFA;
+			color: #AAA;
+
+			> i {
+				display: block;
+			}
+		}
+	}
+}

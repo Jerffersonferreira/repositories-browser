@@ -6,22 +6,57 @@ const
 	SOURCE_PATH = "./source",
 	DIST_PATH = "./dist",
 	JS_SOURCE_PATH = SOURCE_PATH + "/js",
-	JS_DIST_PATH = DIST_PATH + "/js";
+	JS_DIST_PATH = DIST_PATH + "/js",
+	HBS_SOURCE_PATH = SOURCE_PATH + "/handlebars",
+	HBS_DIST_PATH = "./source/temp/templates",
+	LESS_SOURCE_PATH = SOURCE_PATH + "/less",
+	LESS_DIST_PATH = DIST_PATH + "/css",
+	IMG_SOURCE_PATH = SOURCE_PATH + "/img",
+	IMG_DIST_PATH = DIST_PATH + "/img";
 
 const gulp = require("gulp"),
 	browserify = require("browserify"),
 	source = require("vinyl-source-stream"),
 	buffer = require("vinyl-buffer"),
-	uglify = require("gulp-uglify"),
-	sourcemaps = require("gulp-sourcemaps"),
 	gutil = require("gulp-util"),
 	clean = require("gulp-clean"),
 	jshint = require("gulp-jshint"),
 	jscs = require("gulp-jscs"),
-	connect = require("gulp-connect");
+	connect = require("gulp-connect"),
+	handlebars = require("gulp-handlebars"),
+	defineModule = require("gulp-define-module"),
+	less = require("gulp-less"),
+	path = require("path"),
+	imagemin = require("gulp-imagemin");
+
+gulp.task("imagemin", ["img:clean"], function () {
+	return gulp.src(IMG_SOURCE_PATH + "/**/*")
+		.pipe(imagemin())
+		.pipe(gulp.dest(IMG_DIST_PATH));
+});
+
+gulp.task("less", function () {
+	return gulp.src(LESS_SOURCE_PATH + "/*.less")
+		.pipe(less({
+			paths: [ path.join(__dirname) ]
+		}))
+		.pipe(gulp.dest(LESS_DIST_PATH));
+});
+
+gulp.task("hbs:templates", function(){
+	gulp.src([HBS_SOURCE_PATH + "/*.hbs"])
+		.pipe(handlebars())
+		.pipe(defineModule("node"))
+		.pipe(gulp.dest(HBS_DIST_PATH + "/"));
+});
 
 gulp.task("js:clean", function () {
 	return gulp.src(JS_DIST_PATH, {read: false})
+		.pipe(clean({force: true}));
+});
+
+gulp.task("img:clean", function () {
+	return gulp.src(IMG_DIST_PATH, {read: false})
 		.pipe(clean({force: true}));
 });
 
@@ -39,20 +74,18 @@ gulp.task("js:jshint", function() {
 		.pipe(jshint.reporter("fail"));
 });
 
-gulp.task("js:browserify", ["js:jshint", "js:jscs", "js:clean"], function () {
+gulp.task("js:browserify", ["js:jshint", "js:jscs", "hbs:templates", "js:clean"], function () {
 	var b = browserify({
 		debug: true,
 		basedir: JS_SOURCE_PATH + "/",
-		paths: [JS_SOURCE_PATH + "/"]
+		paths: ["../js/", "../temp/"],
+		entries: "main.js"
 	});
 
 	return b.bundle()
+		.on("error", gutil.log)
 		.pipe(source("main.js"))
 		.pipe(buffer())
-		.pipe(sourcemaps.init({loadMaps: true}))
-		.pipe(uglify())
-		.on("error", gutil.log)
-		.pipe(sourcemaps.write("./"))
 		.pipe(gulp.dest(JS_DIST_PATH + "/"));
 });
 
@@ -72,6 +105,8 @@ gulp.task("connect", function() {
 gulp.task("watch", function () {
 	gulp.watch(JS_SOURCE_PATH + "/**/*.js", ["js:browserify"]);
 	gulp.watch(SOURCE_PATH + "/index.html", ["html:copy"]);
+	gulp.watch(LESS_SOURCE_PATH + "/**/*.less", ["less"]);
+	gulp.watch(IMG_SOURCE_PATH + "/**/*.{gif|png|jpg}", ["imagemin"]);
 });
 
 gulp.task("default", ["connect", "watch"], function () {});

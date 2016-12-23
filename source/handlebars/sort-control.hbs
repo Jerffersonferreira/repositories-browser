@@ -1,0 +1,14 @@
+<!-- button-group: -->
+<div class="button-group">
+	{{#each list}}
+		<div class="item">
+			<button class="default-button -sort{{#if order}} -{{order}}{{/if}} js-sort-button" value="{{value}}">
+				{{label}}
+				<i class="material-icons iconasc">arrow_drop_down</i>
+				<i class="material-icons icondesc">arrow_drop_up</i>
+				<i class="material-icons icondefault">sort</i>
+			</button>
+		</div>
+	{{/each}}
+</div>
+<!-- :button-group -->

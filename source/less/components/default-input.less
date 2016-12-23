@@ -1,0 +1,50 @@
+/**
+ * @define default-input
+ */
+
+.default-input {
+	font-family: @font-family;
+	font-size: 25px;
+	font-weight: 300;
+	overflow: hidden;
+	padding: 15px;
+	border: 1px solid #999;
+	outline: 0;
+	box-sizing: border-box;
+	width: 100%;
+	background-color: #FFF;
+
+	&[disabled] {
+		background-color: #EEE;
+	}
+}
+
+/**
+ * @define input-group
+ */
+
+.input-group {
+	position: relative;
+
+	> input {
+		padding-right: 20%;
+	}
+
+	> button {
+		width: 16%;
+		position: absolute;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		box-sizing: border-box;
+	}
+	@media (max-width: @breakpoint-mobile) {
+		> input {
+			padding-right: 24%;
+		}
+
+		> button {
+			width: 25%;
+		}
+	}
+}

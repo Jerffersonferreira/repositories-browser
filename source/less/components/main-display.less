@@ -1,0 +1,58 @@
+/**
+ * @define main-display
+ */
+
+.main-display {
+	@bar-height: 70px;
+
+	background-color: #DDD;
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+
+	> .content {
+		position: absolute;
+		left: 0;
+		top: @bar-height;
+		bottom: 0;
+		right: 0;
+		overflow: auto;
+
+		> .button {
+			margin: 20px;
+			text-align: center;
+		}
+	}
+
+	> .bar {
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: 0;
+		height: @bar-height;
+		background-color: white;
+		box-shadow: 0 0 18px rgba(0,0,0,0.4);
+		z-index: 10;
+
+		> .options {
+			float: left;
+		}
+
+		> .sortoptions {
+			float: right;
+		}
+	}
+	@media (max-width: @breakpoint-mobile) {
+		 @bar-height: 130px;
+
+		> .content {
+			top: @bar-height;
+		}
+
+		> .bar {
+			height: @bar-height;
+		}
+	}
+}

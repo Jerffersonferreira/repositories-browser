@@ -1,0 +1,29 @@
+/**
+ * @define card-list
+ */
+
+.card-list {
+	overflow: hidden;
+	padding: 10px 8px 30px;
+
+	> .item {
+		float: left;
+		width: 100%/3;
+		box-sizing: border-box;
+		padding: 5px;
+	}
+	@media (max-width: @breakpoint-tablet) {
+		> .item {
+			width: 50%;
+		}
+	}
+	@media (max-width: @breakpoint-mobile) {
+		padding: 0;
+
+		> .item {
+			width: 100%;
+			padding: 0;
+			border-bottom: 1px solid #efefef;
+		}
+	}
+}
