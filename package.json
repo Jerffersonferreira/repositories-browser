@@ -19,6 +19,7 @@
     "gulp-connect": "^5.0.0",
     "gulp-define-module": "^0.1.5",
     "gulp-handlebars": "^4.0.0",
+    "gulp-if": "^2.0.2",
     "gulp-imagemin": "^3.1.1",
     "gulp-jscs": "^4.0.0",
     "gulp-jshint": "^2.0.4",
@@ -29,7 +30,8 @@
     "jshint": "^2.9.4",
     "jshint-stylish": "^2.2.1",
     "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^1.1.0",
+    "yargs": "^6.5.0"
   },
   "dependencies": {
     "flux": "^3.1.2",
