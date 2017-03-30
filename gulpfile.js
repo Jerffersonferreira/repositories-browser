@@ -29,7 +29,10 @@ const gulp = require("gulp"),
 	path = require("path"),
 	imagemin = require("gulp-imagemin"),
 	uglify = require("gulp-uglify"),
-	cleanCSS = require("gulp-clean-css");
+	cleanCSS = require("gulp-clean-css"),
+	args   = require("yargs").argv,
+	gulpif = require("gulp-if"),
+	isProduction = !!args.p;
 
 gulp.task("imagemin", ["img:clean"], function () {
 	return gulp.src(IMG_SOURCE_PATH + "/**/*")
@@ -42,7 +45,7 @@ gulp.task("less", function () {
 		.pipe(less({
 			paths: [ path.join(__dirname) ]
 		}))
-		.pipe(cleanCSS())
+		.pipe(gulpif(isProduction, cleanCSS()))
 		.pipe(gulp.dest(LESS_DIST_PATH));
 });
 
@@ -79,7 +82,7 @@ gulp.task("js:jshint", function() {
 
 gulp.task("js:browserify", ["js:jshint", "js:jscs", "hbs:templates", "js:clean"], function () {
 	var b = browserify({
-		debug: false,
+		debug: !isProduction,
 		basedir: JS_SOURCE_PATH + "/",
 		paths: ["../js/", "../temp/"],
 		entries: "main.js"
@@ -89,7 +92,7 @@ gulp.task("js:browserify", ["js:jshint", "js:jscs", "hbs:templates", "js:clean"]
 		.on("error", gutil.log)
 		.pipe(source("main.js"))
 		.pipe(buffer())
-		.pipe(uglify())
+		.pipe(gulpif(isProduction, uglify()))
 		.pipe(gulp.dest(JS_DIST_PATH + "/"));
 });
 
@@ -106,7 +109,11 @@ gulp.task("connect", function() {
 	});
 });
 
-gulp.task("watch", ["js:browserify", "html:copy", "less", "imagemin"], function () {
+gulp.task("build", ["js:browserify", "html:copy", "less", "imagemin"], function () {
+
+});
+
+gulp.task("watch", ["build"], function () {
 	gulp.watch(JS_SOURCE_PATH + "/**/*.js", ["js:browserify"]);
 	gulp.watch(SOURCE_PATH + "/index.html", ["html:copy"]);
 	gulp.watch(LESS_SOURCE_PATH + "/**/*.less", ["less"]);
